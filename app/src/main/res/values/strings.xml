@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">qiMo05</string>
+    <string name="app_name">迷你猜成语</string>
     <string name="score">分数:</string>
     <string name="reset">重置</string>
     <string name="changeIdiom">更换成语</string>

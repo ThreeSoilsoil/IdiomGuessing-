@@ -2,5 +2,12 @@
 <resources>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
+
+    <color name="colorAccent1">
+        <selector name="seletor" xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:color="@color/colorAccent" android:state_pressed="true"></item>
+            <item android:color="@color/colorPrimaryDark" android:state_pressed="false"></item>
+        </selector></color>
     <color name="colorAccent">#03DAC5</color>
+
 </resources>

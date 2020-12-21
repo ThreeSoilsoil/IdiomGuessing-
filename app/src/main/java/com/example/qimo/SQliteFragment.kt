@@ -35,17 +35,16 @@ class SQliteFragment : Fragment() {
         //玩家表 gameId text,Honor text,percen text,Hcopper integer)
             val cursor2=db.query(TABLE_NAME2,null,null,null,null,null,null)
          if(cursor2.moveToFirst()){
-             Log.d("wanjianba","156456464")
+
             do {
                 val playername=cursor2.getString(cursor2.getColumnIndex("gameId"))
                 val honor=cursor2.getString(cursor2.getColumnIndex("Honor"))
                 val percen=cursor2.getString(cursor2.getColumnIndex("percen"))
                 val hcopper = cursor2.getString(cursor2.getColumnIndex("Hcopper"))
-                textView_playerName.text=playername
-                textView_Honor.text=honor
+                textView_playerName.text="姓名："+playername
+                textView_Honor.text="荣誉称号："+honor
                 textView_Percen.text=percen
                 textView_Hcopper.text=hcopper
-                Log.d("wanjianba","156456464")
             }while(cursor2.moveToNext())
         }
         cursor2.close()
@@ -68,6 +67,7 @@ class SQliteFragment : Fragment() {
                     put("ispass","未通过")
                     put("time","无")
                     put("Getcopper",50)
+                    put("lockgrade",0)
                 }
                 db.insert(TABLE_NAME, null, contentValues)
             }

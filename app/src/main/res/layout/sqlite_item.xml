@@ -8,16 +8,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:text="fxk"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:text="fxk" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textView_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:text="35"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:text="35" />
+        android:textColor="#FAE20D"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textView_time"
@@ -25,7 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="通关用时"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:textSize="24sp" />
+        android:textColor="#43EF4A"
+        android:textSize="14sp" />
 
 </LinearLayout>

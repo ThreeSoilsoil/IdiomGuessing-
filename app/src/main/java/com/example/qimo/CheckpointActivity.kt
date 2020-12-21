@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_checkpoint.*
 
 class CheckpointActivity : AppCompatActivity() {
     var checkpoints:Array<String> = Array(idioms_count,{"加载中········"})
-
+    val checkpointss=ArrayList<CheckPoints>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,12 +35,14 @@ class CheckpointActivity : AppCompatActivity() {
             do {
                 val checkpoint=cursor1.getString(cursor1.getColumnIndex("checkpoint"))
                 val score=cursor1.getString(cursor1.getColumnIndex("score"))
-                checkpoints[i++]="${checkpoint}   ${score}"
+                //checkpointss[i++]="${checkpoint}   ${score}"
+                checkpointss.add(CheckPoints(checkpoint,score))
             }while(cursor1.moveToNext())
         }
         cursor1.close()
-        val adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,
-            checkpoints
+        //android.R.layout.simple_list_item_1
+        val adapter = ChecpointAdapter(this,R.layout.checkpoint_item,
+            checkpointss
         )
         listView.adapter=adapter
         listView.setOnItemClickListener { adapterView, view, i, l ->

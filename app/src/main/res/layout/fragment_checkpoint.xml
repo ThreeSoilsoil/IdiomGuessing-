@@ -8,24 +8,29 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#00BCD4"
+        android:backgroundTint="#2196F3">
 
         <Button
             android:id="@+id/button_cpoint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="77dp"
+            android:layout_marginTop="152dp"
+            android:backgroundTint="#FF9800"
             android:text="闯关模式"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/button_challenge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:text="Button"
+            android:layout_marginTop="204dp"
+            android:backgroundTint="#FF9800"
+            android:text="挑战模式"
             app:layout_constraintStart_toStartOf="@+id/button_cpoint"
             app:layout_constraintTop_toBottomOf="@+id/button_cpoint" />
     </androidx.constraintlayout.widget.ConstraintLayout>

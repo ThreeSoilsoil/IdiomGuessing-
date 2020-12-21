@@ -38,12 +38,13 @@ class Game1Activity : AppCompatActivity() {
         imageView_idiom.setImageResource(Card.idiomImage[imageindex])
         button_changeidiom.isEnabled=false
         val hcopper=getHcopper()    //展示剩余铜钱
-        textView_reCopper.text="${hcopper}"
+        textView_reCopper.text="剩余铜钱：${hcopper}"
+        textView_promptprice.text="消耗铜钱：30"
         running =true
-        val chengyu =Card.correct[imageindex]
-        for(i in 0..3) {
-            Card.rankStrings[i] = chengyu[i].toString()
-        }
+
+
+
+
         lateinit var adapter: CardRecyclerViewAdapter
         game = CardMatchingGame(24)
         adapter = CardRecyclerViewAdapter(game)
@@ -58,7 +59,20 @@ class Game1Activity : AppCompatActivity() {
             recylerView1.layoutManager = gridLayoutManager
         }
 
-
+        //放入正确成语
+        val chengyu =Card.correct[imageindex]
+        val random=Random()
+        var i=0
+        while(i<=3) {
+            val index =random.nextInt(24)
+            //防止把之前的正确的成语给替换了
+            val word=game.cards[index].rank
+            if(word!=chengyu[0].toString() && word!=chengyu[1].toString() && word!=chengyu[2].toString()
+                && word!=chengyu[3].toString()){
+                game.cards[index].rank=chengyu[i].toString()
+                i++
+            }
+        }
 
 
 
@@ -74,13 +88,15 @@ class Game1Activity : AppCompatActivity() {
                 copper=60
                 button_Prompt.isEnabled=false
             }
-            //提示消耗铜钱
+            //提示后，修改拥有的铜钱
             val hcopper=getHcopper()  //获得当前的铜钱数量
             val contentValues2 = ContentValues().apply {
                 put("Hcopper",hcopper-copper)
             }
             db.update(TABLE_NAME2,contentValues2,null, null)
-            textView_reCopper.text="${hcopper-copper}"
+
+            textView_reCopper.text="剩余铜钱：${hcopper-copper}"
+            textView_promptprice.text="消耗铜钱：60"
 
             val chengyu =Card.correct[imageindex]
             val random = Random()
@@ -97,6 +113,7 @@ class Game1Activity : AppCompatActivity() {
                 }
             }
             updateUI()
+
         }
 
 
@@ -108,7 +125,7 @@ class Game1Activity : AppCompatActivity() {
         var match_count = arrayOfNulls<Int>(4)
 
         adapter.setOnCardClickListener {
-//            match_count[textView_count-1]=it
+            //将选择的字放入文本框
             if(textView_choose==1) textView_one?.text= game.cards[it].toString()
             if(textView_choose==2) textView_two.text= game.cards[it].toString()
             if(textView_choose==3) textView_three.text= game.cards[it].toString()
@@ -129,33 +146,41 @@ class Game1Activity : AppCompatActivity() {
                 Toast.makeText(this,"恭喜选对了", Toast.LENGTH_SHORT)
                     //.setGravity(Gravity.CENTER, 0, 0)
                     .show()
-//                match_count[0]?.let { it1 -> game.match(it1) }
-//                match_count[1]?.let { it1 -> game.match(it1) }
-//                match_count[2]?.let { it1 -> game.match(it1) }
-//                match_count[3]?.let { it1 -> game.match(it1) }
-                var grade=1
+
+                var grade=0
+
+                var scores=""
                 if(second<=10){
-                    score.text="★★★"
+                    scores="★★★"
                     grade=3
-                }else if(second<=20){
-                    score.text="★★☆"
+                }else if(second<=25){
+                    scores="★★☆"
                     grade=2
+                }else if(second<=40){
+                    scores="★☆☆"
+                    grade=1
                 }else{
-                    score.text="★☆☆"
+                    scores="☆☆☆"
                 }
+                score.text="成绩：${scores}"
                 button_changeidiom.isEnabled=true
                 val copper=getCopper(grade,imageindex)  //可得铜钱
 
                 //更改成绩
+                val getgrade=getLockgrade(imageindex)
 
-                val contentValues = ContentValues().apply {
-                    put("checkpoint","第${imageindex+1}关")
-                    put("score","${score.text.toString()}")
-                    put("ispass","已过关")
-                    put("time", time)
-                    put("Getcopper",50-copper)
+                if(getgrade!=3){  //如果等于3，星级将不会被更改
+                    val contentValues = ContentValues().apply {
+                        put("checkpoint","第${imageindex+1}关")
+                        put("score","${scores}")
+                        put("ispass","已过关")
+                        put("time", time)
+                        put("Getcopper",50-copper)
+                        put("lockgrade",grade)
+                    }
+                    db.update(TABLE_NAME,contentValues,"checkpoint = ?", arrayOf("第${imageindex+1}关"))
                 }
-                db.update(TABLE_NAME,contentValues,"checkpoint = ?", arrayOf("第${imageindex+1}关"))
+
                 //更改玩家表 gameId text,Honor text,percen text,Hcopper integer)
 
                 val honor=getHonor(imageindex+1)  //获得荣誉称号
@@ -189,12 +214,7 @@ class Game1Activity : AppCompatActivity() {
                 textView_two.text=""
                 textView_three.text=""
                 textView_four.text=""
-
             }
-//            textView_count++
-//            if(textView_count==5) textView_count=1;
-
-
         }
         //四个选择框
         textView_one.setOnClickListener {
@@ -231,16 +251,28 @@ class Game1Activity : AppCompatActivity() {
         button_changeidiom.setOnClickListener {
             imageindex++
             score.text="成绩"
+
             button_Prompt.isEnabled=true
             button_changeidiom.isEnabled=false
+            textView_promptprice.text="消耗铜钱：30"
+
             imageView_idiom.setImageResource(Card.idiomImage[imageindex])
             val chengyu =Card.correct[imageindex]
-            for(i in 0..3) {
-                Card.rankStrings[i] = chengyu[i].toString()
+            game.reset()
+            var i=0
+            while(i<=3) {
+                val index =random.nextInt(24)
+                //防止把之前的正确的成语给替换了
+                val word=game.cards[index].rank
+                if(word!=chengyu[0].toString() && word!=chengyu[1].toString() && word!=chengyu[2].toString()
+                    && word!=chengyu[3].toString()){
+                    game.cards[index].rank=chengyu[i].toString()
+                    i++
+                }
             }
 
+
             running =true
-            game.reset()
             updateUI()
         }
     }
@@ -249,7 +281,7 @@ class Game1Activity : AppCompatActivity() {
     }
     fun getHonor(index:Int,):String {
         val honors=arrayOf("成语小白","成语进士","成语状元","成语之神")
-        var honor="荣誉称号"
+        var honor="无"
        if(index<10){ return honor }
         else if(index<20){
            honor=honors[0]
@@ -258,7 +290,7 @@ class Game1Activity : AppCompatActivity() {
        }else if(index<40){
            honor=honors[2]
        }
-        return honor
+        return "荣誉称号："+honor
     }
     fun getCopper(grade: Int,imageindex:Int):Int{
         var canGetcopper=0
@@ -270,7 +302,7 @@ class Game1Activity : AppCompatActivity() {
         if(cursor.moveToFirst()){
             do {
                 canGetcopper=cursor.getInt(cursor.getColumnIndex("Getcopper"))
-                Log.d("canGetcopper13545","${canGetcopper}")
+
             }while(cursor.moveToNext())
         }
         cursor.close()
@@ -306,6 +338,20 @@ class Game1Activity : AppCompatActivity() {
         db.update(TABLE_NAME,value,"checkpoint = ?", arrayOf("第${imageindex+1}关"))
         return hcopper
     }
+    fun getLockgrade(imageindex: Int):Int{
+        var lockgrade=0
+        val guanka="第${imageindex+1}关"
+        val openSqLiteHelper = GameSQlite(this,2)
+        val db = openSqLiteHelper.writableDatabase
+        val cursor = db.query(TABLE_NAME,null,"checkpoint like '%$guanka%'", null,null,null,null)
+        if(cursor.moveToFirst()){
+            do {
+                lockgrade=cursor.getInt(cursor.getColumnIndex("lockgrade"))
+            }while(cursor.moveToNext())
+        }
+        cursor.close()
+        return lockgrade
+    }
     fun getHcopper():Int{
         var hcopper=0
         val openSqLiteHelper = GameSQlite(this,2)
@@ -314,7 +360,6 @@ class Game1Activity : AppCompatActivity() {
         if(cursor.moveToFirst()){
             do {
                 hcopper=cursor.getInt(cursor.getColumnIndex("Hcopper"))
-                Log.d("canGetcopper13545","${hcopper}")
             }while(cursor.moveToNext())
         }
         cursor.close()
