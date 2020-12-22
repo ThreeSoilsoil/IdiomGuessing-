@@ -5,9 +5,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import cn.edu.sicnu.cardgame.Card
+import com.example.qimo.Signreward.RewardActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
 import java.util.*
+import java.text.DateFormat as DateFormat1
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,7 +20,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val Playernames= arrayOf("张真人","孙大圣","猪八戒","空你急哇")
+
+
+
+
+        val Playernames= arrayOf("张真人","孙大圣","猪八戒","空你急哇") //初始化用户名
         val random = Random()
         var playername=Playernames[random.nextInt(Playernames.size)]
 
@@ -32,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                         put("Honor","无")
                         put("percen","0/0")
                         put("Hcopper",0)
+                        put("Reward","日")
                     }
                     db.insert(TABLE_NAME2, null, contentValues)
 
@@ -40,15 +50,28 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu1,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val intent=Intent(this,RewardActivity::class.java)
+        when(item.itemId){
+            R.id.signreward -> startActivity(intent)
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
 
 }
 fun main(){
-    val Playernames= arrayOf("张真人","孙大圣","猪八戒","空你急哇")
-    val random = Random()
-    val b=random.nextInt(Playernames.size-1)
-    println(b)
-    Playernames[b]
-    var playername=Playernames[random.nextInt(Playernames.size)]
-    println(playername)
-
+    val date =Date()
+    val time =date.toLocaleString()
+//    Log.d("time ","${time}")
+    val dateFormat=SimpleDateFormat("dd日")
+    val time2=dateFormat.format(date)
+  //  Log.d("time2","${time2}")
+    println("time "+time)
+    println("time2 "+time2)
 }

@@ -73,9 +73,6 @@ class Game1Activity : AppCompatActivity() {
                 i++
             }
         }
-
-
-
         //提示
         var prompt_count=0 //点击提示次数
         button_Prompt.isEnabled=true
@@ -86,33 +83,39 @@ class Game1Activity : AppCompatActivity() {
                 copper=30
             }else if(prompt_count==2){
                 copper=60
+                prompt_count=0
                 button_Prompt.isEnabled=false
             }
             //提示后，修改拥有的铜钱
             val hcopper=getHcopper()  //获得当前的铜钱数量
+
             val contentValues2 = ContentValues().apply {
                 put("Hcopper",hcopper-copper)
             }
             db.update(TABLE_NAME2,contentValues2,null, null)
+            if(hcopper-copper>=0){
+                textView_reCopper.text="剩余铜钱：${hcopper-copper}"
+                textView_promptprice.text="消耗铜钱：60"
 
-            textView_reCopper.text="剩余铜钱：${hcopper-copper}"
-            textView_promptprice.text="消耗铜钱：60"
+                val chengyu =Card.correct[imageindex]
+                val random = Random()
+                var i=1
+                while(i<=6){
+                    val index=random.nextInt(24)
+                    val word= game.cards[index].toString()
+                    if(word!=chengyu[0].toString() && word!=chengyu[1].toString() && word!=chengyu[2].toString() && word!=chengyu[3].toString()){
+                        if(!game.cards[index].isTrue){
+                            game.match(index)
+                            i++
+                        }
 
-            val chengyu =Card.correct[imageindex]
-            val random = Random()
-            var i=1
-            while(i<=6){
-                val index=random.nextInt(24)
-                val word= game.cards[index].toString()
-                if(word!=chengyu[0].toString() && word!=chengyu[1].toString() && word!=chengyu[2].toString() && word!=chengyu[3].toString()){
-                    if(!game.cards[index].isTrue){
-                        game.match(index)
-                        i++
                     }
-
                 }
+                updateUI()
+            }else{
+                Toast.makeText(this,"你的铜钱余额不足，你可以通过签到或者充值来增加铜钱", Toast.LENGTH_SHORT).show()
             }
-            updateUI()
+
 
         }
 
@@ -191,7 +194,7 @@ class Game1Activity : AppCompatActivity() {
                     put("Hcopper",hcopper+copper)
                 }
                 db.update(TABLE_NAME2,contentValues2,null, null)
-                textView_reCopper.text="${getHcopper()}"
+                textView_reCopper.text="剩余铜钱:${getHcopper()}"
                 second=0
             }
             if(xuanze.length==4 && xuanze!=card.correct[imageindex]){
