@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_checkpoint.*
 
 
 class CheckpointActivity : AppCompatActivity() {
-    var checkpoints:Array<String> = Array(idioms_count,{"加载中········"})
+    //var checkpoints:Array<String> = Array(idioms_count,{"加载中········"})
     val checkpointss=ArrayList<CheckPoints>()
 
 
@@ -29,18 +29,16 @@ class CheckpointActivity : AppCompatActivity() {
         //初始化关卡数据
         val openSqLiteHelper = GameSQlite(this,2)
         val db = openSqLiteHelper.writableDatabase
-        var i=0
+        //var i=0
         val cursor1 = db.query(TABLE_NAME,null,null,null,null,null,null)
         if(cursor1.moveToFirst()){
             do {
                 val checkpoint=cursor1.getString(cursor1.getColumnIndex("checkpoint"))
                 val score=cursor1.getString(cursor1.getColumnIndex("score"))
-                //checkpointss[i++]="${checkpoint}   ${score}"
                 checkpointss.add(CheckPoints(checkpoint,score))
             }while(cursor1.moveToNext())
         }
         cursor1.close()
-        //android.R.layout.simple_list_item_1
         val adapter = ChecpointAdapter(this,R.layout.checkpoint_item,
             checkpointss
         )
@@ -56,7 +54,6 @@ class CheckpointActivity : AppCompatActivity() {
                 val cursor = db.query(TABLE_NAME,null,"checkpoint like '%$guanka%'", null,null,null,null)
                 if(cursor.moveToFirst()){
                     val ispass=cursor.getString(cursor.getColumnIndex("ispass"))
-                    Log.d("ispass12312323","${ispass}")
                     if(ispass=="未通过"){
                         Toast.makeText(this,"请通过前面的关卡！！！", Toast.LENGTH_SHORT)
                             .show()
@@ -64,6 +61,7 @@ class CheckpointActivity : AppCompatActivity() {
                         val intent = Intent(this,Game1Activity::class.java)
                         intent.putExtra("imageindex",imageindex)
                         startActivity(intent)
+                      //  destroy()
                     }
                 }
 
@@ -71,10 +69,16 @@ class CheckpointActivity : AppCompatActivity() {
                 val intent = Intent(this,Game1Activity::class.java)
                 intent.putExtra("imageindex",imageindex)
                 startActivity(intent)
+                //destroy()
             }
 
         }
     }
+
+//    fun destroy() {
+//        onDestroy()
+//    }
+
     companion object{
         var second = 0
         var running = false
@@ -95,5 +99,7 @@ class CheckpointActivity : AppCompatActivity() {
             }
             handler.post(runnable)
         }
+
     }
+
 }

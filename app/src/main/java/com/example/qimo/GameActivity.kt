@@ -7,13 +7,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.qimo.settingfragment.SettingFragment
 //import com.example.fragmentdemo.gamefragment.GameFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class GameActivity : AppCompatActivity() {
     val fragment1 = CheckpointFragment()
     val fragment2 = SQliteFragment()
-    //val fragment3 = SQliteFragment()
+    val fragment3 = SettingFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
@@ -35,10 +36,10 @@ class GameActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.frameLayout,fragment2)
                         .commit()
-//                R.id.share ->
-//                    supportFragmentManager.beginTransaction()
-//                        .replace(R.id.frameLayout,fragment3)
-//                        .commit()
+                R.id.setting ->
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout,fragment3)
+                        .commit()
             }
             true
         }

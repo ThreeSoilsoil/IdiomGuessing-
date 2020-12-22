@@ -2,6 +2,7 @@ package com.example.qimo
 
 import android.app.Activity
 import android.content.ContentValues
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -293,7 +294,7 @@ class Game1Activity : AppCompatActivity() {
        }else if(index<40){
            honor=honors[2]
        }
-        return "荣誉称号："+honor
+        return honor
     }
     fun getCopper(grade: Int,imageindex:Int):Int{
         var canGetcopper=0
@@ -369,8 +370,14 @@ class Game1Activity : AppCompatActivity() {
         return hcopper
     }
 
-
-
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        Log.d("onDestroygame1233","123545")
+//
+//        val intent =Intent(this,CheckpointActivity::class.java)
+//        startActivity(intent)
+//    }
+//
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("second",second)

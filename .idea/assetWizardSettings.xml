@@ -312,7 +312,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/E:/AndroidStudio/plugins/android/lib/android.jar!/images/material/icons/materialicons/attach_money/baseline_attach_money_24.xml" />
+                                      <entry key="url" value="jar:file:/E:/AndroidStudio/plugins/android/lib/android.jar!/images/material/icons/materialicons/settings/baseline_settings_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -322,7 +322,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_baseline_attach_money_24" />
+                            <entry key="outputName" value="ic_baseline_settings_24" />
                             <entry key="sourceFile" value="E:\Android.src\qimo" />
                           </map>
                         </option>

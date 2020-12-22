@@ -18,9 +18,9 @@ class RewardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reward)
         //获取当前日期（天数）
         val date = Date()
-        val dateFormat= SimpleDateFormat("yyyy年-mm月dd日")
+        val dateFormat= SimpleDateFormat("dd日")
         val now_time=dateFormat.format(date)
-        //Log.d("time2","${time2}")
+        Log.d("time2","${now_time}")
 
         val openSqLiteHelper = GameSQlite(this,2)
         val db = openSqLiteHelper.writableDatabase
@@ -33,26 +33,29 @@ class RewardActivity : AppCompatActivity() {
             }while(cursor.moveToNext())
         }
         cursor.close()
-
-        //作比较
+        Log.d("time","${time}")
         if(now_time==time){
             button_reward.text="已签到"
             textView_reward.text="恭喜你完成了今天的签到任务"
             button_reward.isEnabled=false
-        }else{
-            val hcopper= getHcopper()
-            button_reward.isEnabled=true
-            textView_reward.text="+50"
-            button_reward.text="签到"
-            val contentValues = ContentValues().apply {
-                put("Hcopper",hcopper+50)
-                put("Reward",now_time)
-            }
-            db.update(TABLE_NAME2,contentValues,null, null)
-            button_reward.text="已签到"
-            textView_reward.text="恭喜你完成了今天的签到任务"
-            button_reward.isEnabled=false
         }
+        button_reward.setOnClickListener {
+                val hcopper= getHcopper()
+                button_reward.isEnabled=true
+                textView_reward.text="+50"
+                button_reward.text="签到"
+                val contentValues = ContentValues().apply {
+                    put("Hcopper",hcopper+50)
+                    put("Reward",now_time)
+                }
+                db.update(TABLE_NAME2,contentValues,null, null)
+                button_reward.text="已签到"
+                textView_reward.text="恭喜你完成了今天的签到任务"
+                button_reward.isEnabled=false
+
+        }
+        //作比较
+
     }
 
     fun getHcopper():Int{

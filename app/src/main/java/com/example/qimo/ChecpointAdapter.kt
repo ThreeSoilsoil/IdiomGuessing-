@@ -14,10 +14,12 @@ class ChecpointAdapter(activity: Activity,val resourced:Int,data:List<CheckPoint
         val checkpointname:TextView = view.findViewById(R.id.textView_checkpointName)
         val checkpointxinji:TextView = view.findViewById(R.id.textView_checkpointXinji)
         val checkpoint =getItem(position)
+
         if(checkpoint!=null){
             checkpointname.text=checkpoint.guanka
             checkpointxinji.text=checkpoint.xingji
         }
+
         return view
     }
 }
