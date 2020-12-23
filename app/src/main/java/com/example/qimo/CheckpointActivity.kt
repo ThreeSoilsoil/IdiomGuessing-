@@ -6,44 +6,38 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import cn.edu.sicnu.cardgame.Card.Companion.idioms_count
-
+import com.example.fragmentdemo.gamefragment.CardRecyclerViewAdapter
+import com.example.qimo.Signreward.RewardActivity
 
 
 import kotlinx.android.synthetic.main.activity_checkpoint.*
 
 
 class CheckpointActivity : AppCompatActivity() {
-    //var checkpoints:Array<String> = Array(idioms_count,{"加载中········"})
     val checkpointss=ArrayList<CheckPoints>()
 
-
+    lateinit var adapter: ChecpointAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkpoint)
 
         runTimer() //记录时间
-
+        initCheckpointss()
         //初始化关卡数据
         val openSqLiteHelper = GameSQlite(this,2)
         val db = openSqLiteHelper.writableDatabase
-        //var i=0
-        val cursor1 = db.query(TABLE_NAME,null,null,null,null,null,null)
-        if(cursor1.moveToFirst()){
-            do {
-                val checkpoint=cursor1.getString(cursor1.getColumnIndex("checkpoint"))
-                val score=cursor1.getString(cursor1.getColumnIndex("score"))
-                checkpointss.add(CheckPoints(checkpoint,score))
-            }while(cursor1.moveToNext())
-        }
-        cursor1.close()
-        val adapter = ChecpointAdapter(this,R.layout.checkpoint_item,
+         adapter = ChecpointAdapter(this,R.layout.checkpoint_item,
             checkpointss
         )
         listView.adapter=adapter
         listView.setOnItemClickListener { adapterView, view, i, l ->
+
+            // adapter.notifyDataSetChanged()
 
             running=false     //解决时间问题，直接通过滑动屏幕返回
             second=0
@@ -61,7 +55,6 @@ class CheckpointActivity : AppCompatActivity() {
                         val intent = Intent(this,Game1Activity::class.java)
                         intent.putExtra("imageindex",imageindex)
                         startActivity(intent)
-                      //  destroy()
                     }
                 }
 
@@ -69,16 +62,34 @@ class CheckpointActivity : AppCompatActivity() {
                 val intent = Intent(this,Game1Activity::class.java)
                 intent.putExtra("imageindex",imageindex)
                 startActivity(intent)
-                //destroy()
+
             }
 
         }
     }
 
-//    fun destroy() {
-//        onDestroy()
+//    fun updataUi() {
+//        super.onRestart()
+//        initCheckpointss()
+//        adapter.notifyDataSetChanged()
+//        Log.d("12313","456")
 //    }
 
+    fun initCheckpointss(){
+    val openSqLiteHelper = GameSQlite(this,2)
+    val db = openSqLiteHelper.writableDatabase
+    val cursor1 = db.query(TABLE_NAME,null,null,null,null,null,null)
+    if(cursor1.moveToFirst()){
+        do {
+            val checkpoint=cursor1.getString(cursor1.getColumnIndex("checkpoint"))
+            val score=cursor1.getString(cursor1.getColumnIndex("score"))
+            checkpointss.add(CheckPoints(checkpoint,score))
+        }while(cursor1.moveToNext())
+    }
+    cursor1.close()
+
+//    listView.adapter=adapter
+}
     companion object{
         var second = 0
         var running = false

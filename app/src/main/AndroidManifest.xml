@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".settingfragment.MusicActivity"></activity>
+        <activity android:name=".collectidioms.DetailsCtActivity"></activity>
+        <activity android:name=".collectidioms.ListCtActivity" />
+        <activity android:name=".collectidioms.CollectActivity" />
+        <activity android:name=".settingfragment.MusicActivity" />
 
         <service
             android:name=".settingfragment.MusicService"

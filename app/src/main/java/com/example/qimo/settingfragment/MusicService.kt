@@ -27,6 +27,7 @@ class MusicService : Service() {
     override fun onCreate() {
         super.onCreate()
         initMediaPlayer()
+       // Stop()
 //        mediaPlayer.setOnPreparedListener {
 //            it.start()
 //        }

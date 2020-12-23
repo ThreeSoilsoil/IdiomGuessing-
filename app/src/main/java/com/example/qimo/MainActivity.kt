@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import cn.edu.sicnu.cardgame.Card
 import com.example.qimo.Signreward.RewardActivity
+import com.example.qimo.collectidioms.CollectActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -56,9 +57,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val intent=Intent(this,RewardActivity::class.java)
         when(item.itemId){
-            R.id.signreward -> startActivity(intent)
+            R.id.signreward -> {
+                val intent=Intent(this,RewardActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.collect -> {
+                val intent=Intent(this, CollectActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         return super.onOptionsItemSelected(item)

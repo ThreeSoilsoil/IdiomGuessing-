@@ -39,6 +39,7 @@ class SettingFragment : Fragment() {
                         put("gameId",playername)
                     }
             db.update(TABLE_NAME2,contentValues,null, null)
+            editTextName.text.clear()
             Toast.makeText(this.context,"修改成功", Toast.LENGTH_SHORT).show()
         }
 

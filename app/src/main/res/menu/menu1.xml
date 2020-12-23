@@ -2,4 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/signreward" android:title="签到奖励" app:showAsAction="always"/>
+    <item android:id="@+id/collect" android:title="收集成语" app:showAsAction="always"/>
 </menu>
