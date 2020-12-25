@@ -16,18 +16,18 @@ import com.example.qimo.R
 import com.example.qimo.TABLE_NAME3
 import kotlinx.android.synthetic.main.activity_collect.*
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 class CollectActivity : AppCompatActivity() {
 
-    var bitmap =BitmapFactory.decodeResource(null,R.drawable.ic_launcher_background)
+    var bitmap =BitmapFactory.decodeResource(null,R.drawable.add)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_collect)
-
+        Log.d("bitmap","${bitmap}")
         val openSqLiteHelper = GameSQlite(this,2)
         val db = openSqLiteHelper.writableDatabase
         val cursor = db.query(TABLE_NAME3,null,null,null,null,null,null)
-
         Button_choose.setOnClickListener {
             val intent =Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
@@ -36,60 +36,53 @@ class CollectActivity : AppCompatActivity() {
         }
         Button_add.setOnClickListener {
             //imageView3.resources
-            Log.d("cursor","${cursor}")
-            val os = ByteArrayOutputStream()
-            bitmap?.compress(Bitmap.CompressFormat.PNG,100,os)
-            val name = editText_Idiomname.text.toString()
-            val explanation = editText_Idiomexplanation.text.toString()
-            val contentValues = ContentValues().apply {
-                put("name",name)
-                put("Collection","☆")
-                put("Explanation",explanation)
-                put("image",os.toByteArray())
-            }
-            db.insert(TABLE_NAME3,null,contentValues)
+            val name = editText_Idiomname.text.isEmpty()
+            if(editText_Idiomname.text.isEmpty()){
+                Toast.makeText(this,"成语名字不能为空！！！", Toast.LENGTH_SHORT).show()
+            }else{
 
-            editText_Idiomexplanation.text.clear()
-            editText_Idiomname.text.clear()
-            Toast.makeText(this,"增加成功", Toast.LENGTH_SHORT).show()
+                val date = Date()
+                val tim =date.toLocaleString()
+                var time =""
+                for(i in 0..10){
+                    time+=tim[i]
+                }
+                val os = ByteArrayOutputStream()
+                bitmap?.compress(Bitmap.CompressFormat.PNG,100,os)
+                val explanation = editText_Idiomexplanation.text.toString()
+                val contentValues = ContentValues().apply {
+                    put("name",editText_Idiomname.text.toString())
+                    put("Collection","☆")
+                    put("Explanation",explanation)
+                    put("image",os.toByteArray())
+                    put("Date",time)
+                }
+                db.insert(TABLE_NAME3,null,contentValues)
+                editText_Idiomexplanation.text.clear()
+                editText_Idiomname.text.clear()
+                imageView_detailct2.setImageResource(R.drawable.add)
+                Toast.makeText(this,"增加成功${editText_Idiomname.text}", Toast.LENGTH_SHORT).show()
+            }
+            Button_caccel.setOnClickListener {
+                imageView_detailct2.setImageResource(R.drawable.add)
+                editText_Idiomname.text.clear()
+                editText_Idiomexplanation.text.clear()
+            }
 
         }
-//        Button_delete.setOnClickListener {
-//            val name = editText_Idiomname.text.toString()
-//            db.delete(TABLE_NAME3,"name = ?", arrayOf(name))
-//        }
-//        Button_update.setOnClickListener {
-//            val os = ByteArrayOutputStream()
-//            bitmap?.compress(Bitmap.CompressFormat.PNG,100,os)
-//            val name = editText_Idiomname.text.toString()
-//            val explanation = editText_Idiomexplanation.text.toString()
-//            val contentValues = ContentValues().apply {
-//                put("name",name)
-//                put("Explanation",explanation)
-//                put("image",os.toByteArray())
-//            }
-//            db.update(TABLE_NAME3,contentValues,"name = ?", arrayOf(name))
-//
-//        }
-//
-//        Button_query.setOnClickListener {
-//            val name = editText_Idiomname.text.toString()
-//            val cursor = db.query(TABLE_NAME3,null,"name like '%$name%'", null,null,null,null)
-//
-//        }
+
     }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d("1231","456456")
         when(requestCode){
             2 ->{
-                Log.d("1232","456456")
                 if(requestCode==2 && data !=null){
                     data.data?.let { uri ->
                         bitmap =getBitmapFromUri(uri)
-                        imageView_detailct.setImageBitmap(bitmap)
+                        Log.d("bitmap2","${bitmap}")
+                        imageView_detailct2.setImageBitmap(bitmap)
                     }
                 }
             }

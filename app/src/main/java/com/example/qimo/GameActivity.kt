@@ -7,6 +7,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import com.example.qimo.Signreward.RewardActivity
+import com.example.qimo.collectidioms.CollectActivity
 import com.example.qimo.settingfragment.SettingFragment
 //import com.example.fragmentdemo.gamefragment.GameFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -44,24 +48,34 @@ class GameActivity : AppCompatActivity() {
             true
         }
 
-    //    val intentFilter = IntentFilter(CHAT_INTENT)
-    //    val receiver = MyReceiver()
-     //   registerReceiver(receiver,intentFilter)
-
     }
 
-    fun printFragments() {
-        supportFragmentManager.fragments.forEach {
-            Log.d("Fragment","id: ${it}")
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu1,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.signreward -> {
+                val intent=Intent(this, RewardActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.collect -> {
+                val intent=Intent(this, CollectActivity::class.java)
+                startActivity(intent)
+            }
         }
 
+        return super.onOptionsItemSelected(item)
     }
 
 }
 
-class MyReceiver: BroadcastReceiver() {
-    override fun onReceive(p0: Context?, p1: Intent?) {
-        Log.d("BroadcastReceiver","onReceive")
-    }
-
-}
+//class MyReceiver: BroadcastReceiver() {
+//    override fun onReceive(p0: Context?, p1: Intent?) {
+//        Log.d("BroadcastReceiver","onReceive")
+//    }
+//
+//}

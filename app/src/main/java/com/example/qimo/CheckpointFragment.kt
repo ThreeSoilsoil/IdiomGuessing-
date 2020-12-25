@@ -30,4 +30,6 @@ class CheckpointFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(com.example.qimo.R.layout.fragment_checkpoint, container, false)
     }
+
+
 }

@@ -75,10 +75,15 @@ class MainActivity : AppCompatActivity() {
 fun main(){
     val date =Date()
     val time =date.toLocaleString()
+    var time3 =""
+    for(i in 0..10){
+        time3=time3+time[i]
+    }
 //    Log.d("time ","${time}")
-    val dateFormat=SimpleDateFormat("dd日")
+    val dateFormat=SimpleDateFormat("yyyy年mm月dd日")
     val time2=dateFormat.format(date)
   //  Log.d("time2","${time2}")
     println("time "+time)
     println("time2 "+time2)
+    println("time3 "+time3)
 }

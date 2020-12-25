@@ -13,7 +13,7 @@ class GameSQlite(context:Context,version:Int): SQLiteOpenHelper(context, DB_NAME
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL("create table $TABLE_NAME(_id integer primary key autoincrement, checkpoint text,score text,ispass text,time text,Getcopper integer,lockgrade integer)")
         db?.execSQL("create table $TABLE_NAME2(_id integer primary key autoincrement, gameId text,Honor text,percen text,Hcopper integer,Reward text)")
-        db?.execSQL("create table $TABLE_NAME3(_id integer primary key autoincrement, name text,Explanation text,image BLOB,Collection text)")
+        db?.execSQL("create table $TABLE_NAME3(_id integer primary key autoincrement, name text,Explanation text,image BLOB,Collection text,Date text)")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {

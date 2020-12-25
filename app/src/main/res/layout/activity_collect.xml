@@ -16,11 +16,11 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageView_detailct"
+            android:id="@+id/imageView_detailct2"
             android:layout_width="50dp"
             android:layout_height="150dp"
             android:layout_weight="1"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:srcCompat="@drawable/add" />
 
         <Button
             android:id="@+id/Button_choose"
@@ -63,6 +63,14 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#FFEB3B"
                 android:text="增加" />
+
+            <Button
+                android:id="@+id/Button_caccel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:backgroundTint="#FFC107"
+                android:text="取消" />
 
         </LinearLayout>
 
