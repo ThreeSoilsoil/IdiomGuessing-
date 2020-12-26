@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import cn.edu.sicnu.cardgame.Card
 import com.example.qimo.Signreward.RewardActivity
+import com.example.qimo.Signreward.RewardActivity1
 import com.example.qimo.collectidioms.CollectActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
@@ -20,10 +21,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-
-
 
         val Playernames= arrayOf("张真人","孙大圣","猪八戒","空你急哇") //初始化用户名
         val random = Random()
@@ -42,10 +39,8 @@ class MainActivity : AppCompatActivity() {
                         put("Honor","无")
                         put("percen","0/0")
                         put("Hcopper",0)
-                        put("Reward","日")
                     }
                     db.insert(TABLE_NAME2, null, contentValues)
-
             }
             val intent = Intent(this,GameActivity::class.java)
             startActivity(intent)
@@ -59,11 +54,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.signreward -> {
-                val intent=Intent(this,RewardActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.collect -> {
-                val intent=Intent(this, CollectActivity::class.java)
+                val intent=Intent(this, RewardActivity1::class.java)
                 startActivity(intent)
             }
         }
@@ -80,7 +71,7 @@ fun main(){
         time3=time3+time[i]
     }
 //    Log.d("time ","${time}")
-    val dateFormat=SimpleDateFormat("yyyy年mm月dd日")
+    val dateFormat=SimpleDateFormat("第dd天")
     val time2=dateFormat.format(date)
   //  Log.d("time2","${time2}")
     println("time "+time)

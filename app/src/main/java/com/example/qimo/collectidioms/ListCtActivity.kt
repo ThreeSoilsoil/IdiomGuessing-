@@ -3,9 +3,9 @@ package com.example.qimo.collectidioms
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.qimo.*
-import kotlinx.android.synthetic.main.activity_checkpoint.*
+import com.example.qimo.checkpoint.CheckPoints
+import com.example.qimo.checkpoint.ChecpointAdapter
 import kotlinx.android.synthetic.main.activity_list_ct.*
 
 class ListCtActivity : AppCompatActivity() {
@@ -24,6 +24,24 @@ class ListCtActivity : AppCompatActivity() {
                 intent.putExtra("idiomName",checkpointss[position].guanka)
                 startActivity(intent)
             }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        checkpointss.clear()
+        init()
+        //初始化关卡数据
+        val openSqLiteHelper = GameSQlite(this,2)
+        val db = openSqLiteHelper.writableDatabase
+        adapter = ChecpointAdapter(this,R.layout.checkpoint_item,
+            checkpointss
+        )
+        listView_collect.adapter=adapter
+        listView_collect.setOnItemClickListener { adapterView, view, position, l ->
+            val intent = Intent(this,DetailsCtActivity::class.java)
+            intent.putExtra("idiomName",checkpointss[position].guanka)
+            startActivity(intent)
+        }
     }
     fun init(){
         val openSqLiteHelper = GameSQlite(this,2)

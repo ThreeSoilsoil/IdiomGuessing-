@@ -1,24 +1,22 @@
-package com.example.qimo
+package com.example.qimo.gamefragment
 
-import android.app.Activity
 import android.content.ContentValues
-import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import cn.edu.sicnu.cardgame.Card
 import cn.edu.sicnu.cardgame.Card.Companion.idioms_count
 import cn.edu.sicnu.cardgame.CardMatchingGame
 import com.example.fragmentdemo.gamefragment.CardRecyclerViewAdapter
-import com.example.qimo.CheckpointActivity.Companion.running
-import com.example.qimo.CheckpointActivity.Companion.second
-import com.example.qimo.CheckpointActivity.Companion.time
+import com.example.qimo.checkpoint.CheckpointActivity.Companion.running
+import com.example.qimo.checkpoint.CheckpointActivity.Companion.second
+import com.example.qimo.checkpoint.CheckpointActivity.Companion.time
+import com.example.qimo.GameSQlite
+import com.example.qimo.R
+import com.example.qimo.TABLE_NAME
+import com.example.qimo.TABLE_NAME2
 import kotlinx.android.synthetic.main.activity_game1.*
 import java.util.*
 
@@ -67,7 +65,7 @@ class Game1Activity : AppCompatActivity() {
         while(i<=3) {
             val index =random.nextInt(24)
             //防止把之前的正确的成语给替换了
-            val word=game.cards[index].rank
+            val word= game.cards[index].rank
             if(word!=chengyu[0].toString() && word!=chengyu[1].toString() && word!=chengyu[2].toString()
                 && word!=chengyu[3].toString()){
                 game.cards[index].rank=chengyu[i].toString()
@@ -267,7 +265,7 @@ class Game1Activity : AppCompatActivity() {
             while(i<=3) {
                 val index =random.nextInt(24)
                 //防止把之前的正确的成语给替换了
-                val word=game.cards[index].rank
+                val word= game.cards[index].rank
                 if(word!=chengyu[0].toString() && word!=chengyu[1].toString() && word!=chengyu[2].toString()
                     && word!=chengyu[3].toString()){
                     game.cards[index].rank=chengyu[i].toString()
@@ -370,18 +368,16 @@ class Game1Activity : AppCompatActivity() {
         return hcopper
     }
 
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        Log.d("onDestroygame1233","123545")
-//
-//        val intent =Intent(this,CheckpointActivity::class.java)
-//        startActivity(intent)
-//    }
-//
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("second",second)
         outState.putBoolean("running",running)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+
     }
 
 }

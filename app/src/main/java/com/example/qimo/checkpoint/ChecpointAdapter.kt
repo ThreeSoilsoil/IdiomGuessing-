@@ -1,4 +1,4 @@
-package com.example.qimo
+package com.example.qimo.checkpoint
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import com.example.qimo.R
 
 
 class ChecpointAdapter(activity: Activity,val resourced:Int,data:List<CheckPoints>):ArrayAdapter<CheckPoints>(activity,resourced,data) {

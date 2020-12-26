@@ -15,6 +15,7 @@ import com.example.qimo.R
 import com.example.qimo.TABLE_NAME
 import com.example.qimo.TABLE_NAME2
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_s_qlite.*
 import kotlinx.android.synthetic.main.fragment_setting.*
 
 
@@ -32,15 +33,28 @@ class SettingFragment : Fragment() {
         if (openSqLiteHelper != null) {
              db = openSqLiteHelper.writableDatabase
         }
+        val cursor=db.query(TABLE_NAME2,null,null,null,null,null,null)
+        if(cursor.moveToFirst()){
+            do {
+                val playername=cursor.getString(cursor.getColumnIndex("gameId"))
+                textViewctname.text=playername
+            }while(cursor.moveToNext())
+        }
+        cursor.close()
         button_changeName.setOnClickListener {
            val playername=editTextName.text.toString()
-            val cursor = db.query(TABLE_NAME2,null,null,null,null,null,null)
-                    val contentValues = ContentValues().apply {
-                        put("gameId",playername)
-                    }
-            db.update(TABLE_NAME2,contentValues,null, null)
-            editTextName.text.clear()
-            Toast.makeText(this.context,"修改成功", Toast.LENGTH_SHORT).show()
+            if(editTextName.text.isEmpty()){
+                Toast.makeText(this.context,"请输入姓名", Toast.LENGTH_SHORT).show()
+            }else{
+                val contentValues = ContentValues().apply {
+                    put("gameId",playername)
+                }
+                db.update(TABLE_NAME2,contentValues,null, null)
+                textViewctname.text=playername
+                editTextName.text.clear()
+                Toast.makeText(this.context,"修改成功", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
     }

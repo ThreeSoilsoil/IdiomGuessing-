@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".collectidioms.DetailsCtActivity"></activity>
+        <activity android:name=".Signreward.RewardActivity1"></activity>
+        <activity android:name=".collectidioms.DetailsCtActivity" />
         <activity android:name=".collectidioms.ListCtActivity" />
         <activity android:name=".collectidioms.CollectActivity" />
         <activity android:name=".settingfragment.MusicActivity" />
@@ -20,8 +21,8 @@
             android:exported="true" />
 
         <activity android:name=".Signreward.RewardActivity" />
-        <activity android:name=".Game1Activity" />
-        <activity android:name=".CheckpointActivity" />
+        <activity android:name=".gamefragment.Game1Activity" />
+        <activity android:name=".checkpoint.CheckpointActivity" />
         <activity android:name=".GameActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

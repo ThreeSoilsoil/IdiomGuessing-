@@ -1,15 +1,12 @@
 package com.example.qimo
 
 
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.example.qimo.Signreward.RewardActivity
+import com.example.qimo.checkpoint.CheckpointFragment
 import com.example.qimo.collectidioms.CollectActivity
 import com.example.qimo.settingfragment.SettingFragment
 //import com.example.fragmentdemo.gamefragment.GameFragment
@@ -52,16 +49,13 @@ class GameActivity : AppCompatActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu1,menu)
+        menuInflater.inflate(R.menu.collectmenu,menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.signreward -> {
-                val intent=Intent(this, RewardActivity::class.java)
-                startActivity(intent)
-            }
+
             R.id.collect -> {
                 val intent=Intent(this, CollectActivity::class.java)
                 startActivity(intent)

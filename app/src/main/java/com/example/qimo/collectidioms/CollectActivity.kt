@@ -92,13 +92,13 @@ class CollectActivity : AppCompatActivity() {
         BitmapFactory.decodeFileDescriptor(it.fileDescriptor)
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.collectmenu,menu)
+        menuInflater.inflate(R.menu.chakanmenu,menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.Listcollect -> {
+            R.id.chakanListcollect -> {
                 val intent=Intent(this, ListCtActivity::class.java)
                 startActivity(intent)
             }

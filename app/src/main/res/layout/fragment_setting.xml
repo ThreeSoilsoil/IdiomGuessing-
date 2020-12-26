@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,38 +10,60 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView_name"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="修改姓名："
-                android:textSize="20sp" />
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/editTextName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="输入名字"
-                android:inputType="textPersonName" />
+                <TextView
+                    android:id="@+id/TextView_name"
+                    android:layout_width="61dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="当前姓名："
+                    android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/button_changeName"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textViewctname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="...."
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="#FF9800"
-                android:text="修改" />
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="输入名字"
+                    android:inputType="textPersonName" />
+
+                <Button
+                    android:id="@+id/button_changeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FF9800"
+                    android:text="修改" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -57,6 +80,27 @@
                 android:text="音乐控制界面"
                 android:textSize="18sp" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/zhifu" />
+
+            <TextView
+                android:id="@+id/textView_zhifu"
+                android:layout_width="match_parent"
+                android:layout_height="316dp"
+                android:layout_weight="1"
+                android:text="你的支持将是我前进的动力，感谢大哥的微信支付。充钱可以获得额外的铜钱哦"
+                android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

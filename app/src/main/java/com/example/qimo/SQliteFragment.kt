@@ -35,7 +35,6 @@ class SQliteFragment : Fragment() {
         //玩家表 gameId text,Honor text,percen text,Hcopper integer)
             val cursor2=db.query(TABLE_NAME2,null,null,null,null,null,null)
          if(cursor2.moveToFirst()){
-
             do {
                 val playername=cursor2.getString(cursor2.getColumnIndex("gameId"))
                 val honor=cursor2.getString(cursor2.getColumnIndex("Honor"))
