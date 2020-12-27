@@ -2,19 +2,16 @@ package com.example.qimo
 
 import android.content.ContentValues
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import cn.edu.sicnu.cardgame.Card
-import com.example.qimo.Signreward.RewardActivity
 import com.example.qimo.Signreward.RewardActivity1
-import com.example.qimo.collectidioms.CollectActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
-import java.text.DateFormat as DateFormat1
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +28,11 @@ class MainActivity : AppCompatActivity() {
         val cursor = db.query(TABLE_NAME2,null,null,null,null,null,null)
 
         button_startGame.setOnClickListener {
+
+            val mediaPlayer = MediaPlayer.create(this, R.raw.kaishiyouxi)//msg是滴的MP3文件，很小
+            mediaPlayer.start()
+
+
            // gameId text,Honor text,percen text,Hcopper integer)
             if(!cursor.moveToFirst()){
                 Log.d("wanjianba","156456464")

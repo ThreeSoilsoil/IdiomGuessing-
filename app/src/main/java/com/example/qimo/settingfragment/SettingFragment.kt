@@ -3,6 +3,7 @@ package com.example.qimo.settingfragment
 import android.content.ContentValues
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -46,6 +47,10 @@ class SettingFragment : Fragment() {
             if(editTextName.text.isEmpty()){
                 Toast.makeText(this.context,"请输入姓名", Toast.LENGTH_SHORT).show()
             }else{
+
+                val mediaPlayer = MediaPlayer.create(this.context, R.raw.dingdong)//msg是滴的MP3文件，很小
+                mediaPlayer.start()
+
                 val contentValues = ContentValues().apply {
                     put("gameId",playername)
                 }

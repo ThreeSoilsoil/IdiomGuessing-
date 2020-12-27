@@ -2,8 +2,10 @@ package com.example.qimo.gamefragment
 
 import android.content.ContentValues
 import android.content.res.Configuration
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Vibrator
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import cn.edu.sicnu.cardgame.Card
@@ -138,8 +140,13 @@ class Game1Activity : AppCompatActivity() {
 
             if(xuanze == card.correct[imageindex]){
                running =false
+
+                val mediaPlayer = MediaPlayer.create(this, R.raw.huidazhengque)//msg是滴的MP3文件，很小
+                mediaPlayer.start()
+
                 //清楚选择框的内容
                 xuanze=""
+
                 textView_one.text=""
                 textView_two.text=""
                 textView_three.text=""
@@ -197,6 +204,9 @@ class Game1Activity : AppCompatActivity() {
                 second=0
             }
             if(xuanze.length==4 && xuanze!=card.correct[imageindex]){
+
+                val vibrator = this.getSystemService(android.content.Context.VIBRATOR_SERVICE) as Vibrator
+                vibrator.vibrate(100)
 
                 val chengyu1 =Card.correct[imageindex]
 
